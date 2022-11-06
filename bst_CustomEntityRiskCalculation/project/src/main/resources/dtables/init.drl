@@ -1,0 +1,30 @@
+package dtables;
+
+import com.bst.riskcalculation.dataobject.RuleRequest;
+import com.bst.riskcalculation.dataobject.RuleResponse;
+import com.bst.riskcalculation.dataobject.RulesMatched;
+
+function Map<String, Object> getRiskRecord(String name, Object value) {
+	Map<String, Object> record = new HashMap<String, Object>();
+	record.put("Risk name", name);
+	record.put("Risk value", value);
+	return record;
+}
+
+rule "Initialization rule"
+    agenda-group "init"
+    no-loop true
+    when
+        exists RuleRequest()
+    then
+        insert(new RuleResponse());
+        insert(new RulesMatched());
+        kcontext.getKnowledgeRuntime().setGlobal("highFlagGlobal", false);
+        drools.setFocus("categorizationrules-riskfactorsummary");
+        drools.setFocus("categorizationrules");
+        drools.setFocus("riskfactorsummary-flag");
+        drools.setFocus("riskfactorsummary");
+        drools.setFocus("aggregationrules");
+        drools.setFocus("customrules");
+        drools.setFocus("data");
+end

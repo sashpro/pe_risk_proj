@@ -1,0 +1,26 @@
+package dtables;
+
+import com.bst.riskcalculation.dataobject.RulesMatched;
+import com.bst.riskcalculation.dataobject.RuleResponse;
+import com.bst.riskcalculation.dataobject.GenericData;
+import java.util.Map;
+import java.util.List;
+
+query "Get RulesMatched"
+    $rulesMatched : RulesMatched()
+end
+
+query "Get RuleResponse"
+    $data : RuleResponse()
+end
+
+query "Get RuleResponse Data"
+    $res : RuleResponse()
+    $data : Map() from $res.getData()
+    //$riskCategories : Object() from $data.get("RiskCategories")
+end
+
+query "Get GenericData"
+    $data : GenericData()
+end
+
